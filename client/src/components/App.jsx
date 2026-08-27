@@ -48,7 +48,7 @@ function App() {
       await axios.post(API_URL + "/api/contacts", contact);
       getContacts();
       closeModal();
-      toast.success("Contact added successfully CICD!");
+      toast.success("Contact added successfully!");
     } catch {
       toast.error("Failed to add contact!");
     }
