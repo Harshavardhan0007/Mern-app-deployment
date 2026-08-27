@@ -72,7 +72,6 @@ jobs:
             cd ~/Contact-Manager-Mern
             echo "Deploying tag: $IMAGE_TAG"
             sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$IMAGE_TAG/" .env
-            cat .env 
             git pull
             docker compose pull 
             docker compose up -d 

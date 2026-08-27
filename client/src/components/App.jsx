@@ -59,7 +59,7 @@ function App() {
       await axios.put(API_URL + "/api/contacts/" + contact._id, contact);
       getContacts();
       closeModal();
-      toast.success("Contact updated successfully CICD!");
+      toast.success("Contact updated successfully!");
     } catch {
       toast.error("Failed to update contact!");
     }
