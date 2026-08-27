@@ -69,7 +69,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/Contact-Manager-Mern
-            sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=IMAGE_TAG/" .env
+            echo "Deploying tag: $IMAGE_TAG"
+            sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$IMAGE_TAG/" .env
+            cat .env 
             git pull
             docker compose pull 
             docker compose up -d 
