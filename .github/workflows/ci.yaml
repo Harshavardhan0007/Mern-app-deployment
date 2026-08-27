@@ -56,7 +56,7 @@ jobs:
           REPOSITORY: contact-app/frontend
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f client/Dockerfile ./client 
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f client/Dockerfile ./client
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Deploy to EC2
@@ -67,6 +67,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: IMAGE_TAG
           script: |
             cd ~/Contact-Manager-Mern
             echo "Deploying tag: $IMAGE_TAG"
