@@ -48,7 +48,7 @@ function App() {
       await axios.post(API_URL + "/api/contacts", contact);
       getContacts();
       closeModal();
-      toast.success("Contact added successfully!");
+      toast.success("Contact added successfully CICD!");
     } catch {
       toast.error("Failed to add contact!");
     }
@@ -59,7 +59,7 @@ function App() {
       await axios.put(API_URL + "/api/contacts/" + contact._id, contact);
       getContacts();
       closeModal();
-      toast.success("Contact updated successfully!");
+      toast.success("Contact updated successfully CICD!");
     } catch {
       toast.error("Failed to update contact!");
     }
