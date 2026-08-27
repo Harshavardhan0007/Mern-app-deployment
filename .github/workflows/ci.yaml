@@ -30,6 +30,40 @@ jobs:
         working-directory: ./client
         run: npm run build
 
+      - name: Amazon IAM login
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: ${{ secrets.AWS_REGION }} 
+
+      - name: Amazaon ECR login 
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2   
+
+      - name: Build, tag and push backend image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: contact-app/backend 
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Build, tag and push frontend image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: contact-app/frontend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f client/Dockerfile ./client 
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+
+
+
+
+
 
 
 
